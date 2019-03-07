@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io('http://localhost:3000');
+    console.log('소켓 연결 되나');
+
+    socket.on('Detected', (payload) => {
+      console.log(`payload : ${payload}`);
+      const { path } = payload 
+      const text = document.getElementById('path');
+      text.innerHTML = path;
+    });
+
+    function FireDetected (value) {
+      const payload = {
+        room : value
+      }
+      socket.emit('Detected', payload);
+      console.log('화재 감지');
+    }
+  </script>
+  <title>Fire Detected Test Tool</title>
+  <style>
+    .button {
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+  <input class="button" type="button" value="B" onclick="FireDetected('B')"><br>
+  <input class="button" type="button" value="C" onclick="FireDetected('C')"><br>
+  <p id="path">없음</p>
+</body>
+</html>

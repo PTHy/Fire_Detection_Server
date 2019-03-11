@@ -2,7 +2,7 @@ const Detected = require('./event/Detected')
 
 exports.start = (io) => {
   io.on('connect', async (socket) => {
-    try {
+    try { 
       console.log('소켓 연결 성공');
     } catch (error){
       console.log('소켓 연결 실패');
